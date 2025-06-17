@@ -9,6 +9,8 @@ Prism is a lightweight data engine at the heart of the **Career Harvest** applic
 
 ## 📚 Table of Contents
 
+API DOCS : [API REFERENCE](./docs/API.md)
+
 * [About Prism](#about-prism)
 * [How Interns Benefit](#how-interns-benefit)
 * [Installation](#installation)
