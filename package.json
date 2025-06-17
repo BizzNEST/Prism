@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "jsdoc-to-markdown": "^9.1.1"
+  },
+  "scripts": {
+    "docs": "jsdoc2md ./src/**/**/*.js > ./docs/API.md"
+  }
+}
