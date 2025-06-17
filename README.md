@@ -1,7 +1,3 @@
-Here's an improved and more polished version of your README. The tone is professional, clear, and helpful while preserving your original structure and intentions:
-
----
-
 # BizzNEST Prism
 
 **Empowering interns with data-driven career insights.**
