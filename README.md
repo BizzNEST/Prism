@@ -1,10 +1,10 @@
-# Project Title
+# BizzNEST Prism
+Empowering interns by providing data driven insights. Prism is a lightweight data engine powering the Career Harvest application — designed to efficiently collect, process, and serve career-related data.
 
-A brief description of what this project does and who it's for.
+<img src="./docs/images/prism.png" alt="Project Image" width="200" style="border-radius:200px"/>
 
 ## Table of Contents
-
-- [Project Title](#project-title)
+- [Project Title](#bizznest-prism)
 - [Table of Contents](#table-of-contents)
 - [Installation](#installation)
 - [Usage](#usage)
@@ -12,6 +12,15 @@ A brief description of what this project does and who it's for.
 - [Contributing](#contributing)
 - [License](#license)
 - [Contact](#contact)
+
+---
+<br>
+
+## How Do Interns Benefit?
+#### Data Driven Insights
+Thanks to prism interns can make job application decisions based on: 
+* Job Market Demand
+* Job Market Sentiment
 
 ## Installation
 
