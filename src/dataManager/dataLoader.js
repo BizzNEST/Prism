@@ -19,7 +19,6 @@ const fetchData = async function (url) {
   return await data.json()
 }
 
-
 /**
  * @typedef {object} loadDateConfig
  * @property {string} fileDir
@@ -29,7 +28,7 @@ const fetchData = async function (url) {
 
 /**
  * @param {loadDateConfig} config
- * @description - finds a local file if not found it fetches and caches it from a url endpoint.
+ * @description - finds a local Json file if not found it fetches and caches the file from a url endpoint.
  * @returns {JSON}
  */
 export const loadData = async function (config) {
