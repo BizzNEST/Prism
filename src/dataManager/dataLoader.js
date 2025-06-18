@@ -1,4 +1,4 @@
-import {readFile} from "fs/promises"
+import { readFile } from "fs/promises"
 import { doesFileExist, storeFile } from "../fileManager/fileManager.js"
 
 /**
@@ -40,23 +40,37 @@ export const loadData = async function (config) {
    * @type {boolean}
    */
   const fileExist = await doesFileExist(fileDir, fileName);
+  let errorLog = ""
   if (!fileExist) {     //If file does not exist
-    /**
-     * @type {JSON}
-     */
-    let result = await fetchData(url)
     /**
      * @type {string}
      */
-    let jsonFile = JSON.stringify(result);
-    await storeFile({ filePath: fileDir, content:jsonFile})
-    return result;
+    errorLog += "File does not exist && "
+    try {
+      /**
+    * @type {JSON}
+    */
+      let result = await fetchData(url)
+      /**
+       * @type {string}
+       */
+      let jsonFile = JSON.stringify(result);
+      /**
+       * @type {string}
+       */
+      let filePath = fileDir + fileName;
+      await storeFile({ filePath: filePath, content: jsonFile })
+      return result;
+    } catch (e) {
+      errorLog += "Failed to fetch data from url"
+      throw new Error(`Could not load Data : ${errorLog}`)
+    }
   }
   else {     //If file exist
     /**
      * @type {JSON}
      */
-    const file = JSON.parse(await readFile(fileDir+fileName,"utf-8"))
+    const file = JSON.parse(await readFile(fileDir + fileName, "utf-8"))
     return file
   }
 }

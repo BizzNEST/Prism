@@ -64,7 +64,7 @@ Follow these steps to set up the development environment:
 4. **Create API cache directory**
 
    ```sh
-   mkdir -p ./src/data/api
+   mkdir -p ./data/api
    ```
 
 5. **Start the development server**
