@@ -121,5 +121,93 @@ const softSkillsAnalytics = await sniff(initData, skills, {
 
 console.log({ techTermsAnalytics, softSkillsAnalytics });
 ```
+Here’s a more **structured and clear example usage section** for your documentation, along with **brief explanations** of what `sniffTimeSorted` and `flattenTimeSorted` do and how they relate.
+
+---
+
+## 📘 Example Usage
+
+```js
+import { sniffTimeSorted, flattenTimeSorted } from "./src/jobListings/dataFunctions/keysniffer.js";
+
+// Assume initData is a valid JobListingsResponse JSON
+const keywords = ["React"];
+
+const options = {
+  threshold: 0,         // Minimum number of occurrences to include a term
+  excludeList: []       // Terms to exclude from the results
+};
+
+const timeSortedData = await sniffTimeSorted(initData, keywords, options);
+
+const flattened = flattenTimeSorted(timeSortedData);
+
+console.log(flattened);
+```
+
+---
+
+## 🧠 Function Breakdown
+
+### 🔍 `sniffTimeSorted(data, keywords, options)`
+
+* **Purpose**: Analyzes job listings over time (by year and month) for keyword mentions.
+
+* **How it works**:
+
+  1. **Groups** job listings by year and month (`sortByTime`).
+  2. **Counts** keyword occurrences in job descriptions for each time slice (`sniff` + `getDataPlot`).
+  3. **Returns** a nested object showing term metrics per month and year.
+
+* **Output** (sample structure):
+
+```js
+{
+  "2025": {
+    "3": {
+      "React": {
+        occurrences: 12,
+        jobrefs: [123, 124]
+      }
+    },
+    ...
+  },
+  ...
+}
+```
+
+---
+
+### 🔄 `flattenTimeSorted(data)`
+
+* **Purpose**: Converts the nested `TimeSortedDataPlot` structure into a flat array of entries for easier processing or visualization.
+* **Input**: Output from `sniffTimeSorted`.
+* **Output**:
+
+```js
+[
+  {
+    year: "2025",
+    month: "3",
+    term: "React",
+    occurrences: 12,
+    jobrefs: [123, 124]
+  },
+  ...
+]
+```
+
+---
+
+## 🔗 How They Work Together
+
+`sniffTimeSorted` gives you a **structured time-series breakdown** of keyword usage in job listings.
+`flattenTimeSorted` then **converts that structure into a flat array**, which is ideal for rendering in charts, tables, or exporting as data.
+
+This pipeline is useful when you want to analyze and visualize **how often certain tech terms appear over time** in job descriptions.
+
+---
+
+Let me know if you'd like visual examples, sample `initData`, or integration tips!
 
 ---

@@ -15,7 +15,7 @@ import { getYearMonth } from "../../helpers/time/timeHelpers.js";
  */
 
 /**
- * @typedef {Object.<string, YearData>} TimeDataPlot
+ * @typedef {Object.<string, YearData>} TimeSortedJobListings
  * An object mapping year strings (e.g. "2025") to YearData.
  */
 
@@ -23,11 +23,11 @@ import { getYearMonth } from "../../helpers/time/timeHelpers.js";
  * 
  * @param {JSON<JobListingsResponse>} data 
  * @param {sortByTimeConfig} options 
- * @returns {TimeDataPlot}
+ * @returns {TimeSortedJobListings}
  */
 export function sortByTime(data, options) {
     /**
-     * @type {TimeDataPlot}
+     * @type {TimeSortedJobListings}
      */
     let timeDataPlot = {};
     for (let joblisting of data.listings) {

@@ -1,5 +1,5 @@
 import { countWordOccurrences } from '../../helpers/regex/regexHelpers.js';
-
+import { sortByTime } from './timeMachine.js';
 /**
  * @import { JobListingsResponse } from '../../jsdoctypes/jobListingTypes.js' 
  */
@@ -72,4 +72,69 @@ function refineQualityMetrics(data, minFrequency = 10, excludeList = []) {
 export async function sniff(data, keywords, options = { threshold: 0, excludeList: [] }) {
   let metrics = refineQualityMetrics(getDataPlot(data, keywords), options.threshold, options.excludeList)
   return metrics
+}
+
+/**
+ * @typedef {Object<string,DataPlot>} MonthTermData
+ */
+
+/**
+ * @typedef {Object<string,MonthTermData>} YearTermData
+ */
+
+/**
+ * @typedef {Object<string,YearTermData>} TimeSortedDataPlot
+ */
+
+/**
+ * @import { TimeSortedJobListings } from "./timeMachine.js";
+ */
+
+/**
+ * @param {JobListingsResponse} data 
+ * @param {Array<string>} keywords 
+ * @returns {TimeSortedDataPlot}
+ */
+export async function sniffTimeSorted(data, keywords, options = { threshold: 0, excludeList: [] }) {
+  /**
+   * @type {TimeSortedJobListings}
+   */
+  let sortedData = sortByTime(data, { scale: "month" })
+  /**
+   * @type {TimeSortedDataPlot}
+   */
+  let sortedDataPlot = {};
+  for (const year of Object.keys(sortedData)) {
+    for (const month of Object.keys(sortedData[year])) {
+      let keywordMatches = await sniff(sortedData[year][month], keywords, options)
+      sortedDataPlot[year] = sortedDataPlot[year] || {};
+      sortedDataPlot[year][month] = keywordMatches
+    }
+  }
+  return sortedDataPlot
+}
+
+/**
+ * @param {TimeSortedDataPlot} data
+ * @returns {Array<{ year: string, month: string, term: string, occurrences: number, jobrefs: Array<string|number> }>}
+ */
+export function flattenTimeSorted(data) {
+  const result = [];
+  for (const year in data) {
+    for (const month in data[year]) {
+      const terms = data[year][month];
+      for (const term in terms) {
+        const termData = terms[term];
+        result.push({
+          year,
+          month,
+          term,
+          occurrences: termData.occurrences,
+          jobrefs: termData.jobrefs,
+        });
+      }
+    }
+  }
+
+  return result;
 }
